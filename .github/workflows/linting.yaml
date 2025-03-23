@@ -1,4 +1,4 @@
-name: Lint , BanditScan
+name: Lint and BanditScan
 
 on: # yamllint disable-line rule:truthy
   push:
@@ -7,9 +7,6 @@ on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
-
-
-permissions: {}
 
 jobs:
   build:
@@ -30,14 +27,13 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
-          
       - name: BanditScan
         uses: shundor/bandit-action@v1
-        with: 
-        path: "."
-        level: high
-        confidence: high
-        exit_zero: true    
+        with:
+          path: "."
+          level: high
+          confidence: high
+          exit_zero: true
 
       - name: Super-linter
         uses: super-linter/super-linter@v7.3.0 # x-release-please-version
