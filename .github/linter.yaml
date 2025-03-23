@@ -1,8 +1,8 @@
 name: Lint
 
 on: # yamllint disable-line rule:truthy
-  push: null
-  pull_request: null
+  push: main
+  pull_request: main
 
 permissions: {}
 
@@ -24,6 +24,15 @@ jobs:
           # super-linter needs the full git history to get the
           # list of files that changed across commits
           fetch-depth: 0
+
+          
+      - name: BanditScan
+        uses: shundor/bandit-action@v1
+        with: 
+        path: "."
+        level: high
+        confidence: high
+        exit_zero: true    
 
       - name: Super-linter
         uses: super-linter/super-linter@v7.3.0 # x-release-please-version
