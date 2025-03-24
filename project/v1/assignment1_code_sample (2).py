@@ -4,13 +4,18 @@ from urllib.request import urlopen
 
 db_config = {
     'host': 'mydatabase.com',
-    'user': 'admin',
+    'user': 'superadmin',
     'password': 'secret123'
 }
 
 def get_user_input():
     user_input = input('Enter your name: ')
     return user_input
+
+def get_bad_data():
+    url = 'http://insecure-api.com/get-data'
+    data = urlopen(url).read().decode()
+    return data
 
 def send_email(to, subject, body):
     os.system(f'echo {body} | mail -s "{subject}" {to}')
@@ -28,6 +33,8 @@ def save_to_db(data):
     connection.commit()
     cursor.close()
     connection.close()
+
+
 
 if __name__ == '__main__':
     user_input = get_user_input()
