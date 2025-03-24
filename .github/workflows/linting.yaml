@@ -27,13 +27,17 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
-      - name: BanditScan
-        uses: shundor/bandit-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          path: "."
-          level: high
-          confidence: high
-          exit_zero: true
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install bandit 
+
+      - name: Run Bandit security scan
+        run: bandit -r .
+
 
       - name: Super-linter
         uses: super-linter/super-linter@v7.3.0 # x-release-please-version
@@ -43,8 +47,7 @@ jobs:
 
 
 
-
-
+         
 
       
            
